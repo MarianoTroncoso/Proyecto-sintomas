@@ -64,5 +64,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // console.log('db creada y ready')
     }
+    // cuando el formulario se envia 
+    form.addEventListener('submit', agregarDatos);
+
+    function agregarDatos(e){
+        e.preventDefault(); 
+        const nuevaCita = {
+            mascota: nombreMascota.value,
+            cliente: nombreCliente.value,
+            telefono: telefono.value,
+            fecha: fecha.value,
+            hora: hora.value,
+            sintomas: sintomas.value
+        };
+        console.log(nuevaCita);
+    }
 
 })
