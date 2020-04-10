@@ -33,6 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // asignar a la base de datos 
         DB = crearDB.result;
         // console.log(DB);
+
+        mostrarCitas();
     }
 
     // este metodo solo corre una vez
@@ -99,6 +101,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         transaction.onerror = () => {
             console.log('hubo un error');
+        }
+    }
+
+    function mostrarCitas(){
+        // limpiar citas anteriores
+        while(citas.firstChild){
+            citas.removeChild(citas.firstChild);
+        };
+
+        // creamos un objectStores
+        let objectStore = DB.transaction('citas').objectStore('citas');
+
+        // esto retorna una peticion
+        objectStore.openCursor().onsuccess = function(e){
+            // cursor se va a ubicar en el registro indicado
+            // para acceder a los datos
+
+            let cursor = e.target.result;
+
+            // console.log(cursor);
+            if(cursor){
+                let citaHTML = document.createElement('li');
+                citaHTML.setAttribute('data-cita-id', cursor.value.key);
+                citaHTML.classList.add('list-group-item');
+
+                citaHTML.innerHTML = `
+                    <p class="font-weight-bold">Mascota: <span class="font-weight-normal">${cursor.value.mascota}</span></p>
+                `;
+
+                // append en el padre
+                citas.appendChild(citaHTML);
+                
+                cursor.continue();
+            }
         }
     }
 
