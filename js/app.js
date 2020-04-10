@@ -77,7 +77,29 @@ document.addEventListener('DOMContentLoaded', () => {
             hora: hora.value,
             sintomas: sintomas.value
         };
-        console.log(nuevaCita);
+        // console.log(nuevaCita);
+
+        // en indexedDB se usan las transacciones
+        // pasamos el nombre de la base de datos
+        // y el modo ReadOnly & ReadWrite
+        let transaction = DB.transaction(['citas'], 'readwrite');
+        let objectstore = transaction.objectStore('citas');
+        // console.log(objectstore)
+
+        let peticion = objectstore.add(nuevaCita);
+
+        // si fue correcta
+        peticion.onsuccess = () => {
+            form.reset();
+        };
+
+        transaction.oncomplete = () => {
+            console.log('cita agregada');
+        };
+
+        transaction.onerror = () => {
+            console.log('hubo un error');
+        }
     }
 
 })
