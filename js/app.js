@@ -55,8 +55,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // crear los indices y campos de la base de datos:
         // 3 parametros: nombre, keypath y opciones 
         // Indice para mascota 
-        objectstore.createIndex('mascota', 'mascota', {unique: false} ) 
+        objectstore.createIndex('mascota', 'mascota', {unique: false});
+        objectstore.createIndex('cliente', 'mascota', {unique: false});
+        objectstore.createIndex('telefono', 'mascota', {unique: false});
+        objectstore.createIndex('fecha', 'mascota', {unique: false});
+        objectstore.createIndex('hora', 'mascota', {unique: false});
+        objectstore.createIndex('sintomas', 'mascota', {unique: false}); 
 
+        // console.log('db creada y ready')
     }
 
 })
