@@ -28,12 +28,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // si todos esta bien muestra en consola y asigna la bd
     crearDB.onsuccess = function(){
-        console.log('todo listo');
+        // console.log('todo listo');
 
         // asignar a la base de datos 
         DB = crearDB.result;
-        console.log(DB);
+        // console.log(DB);
     }
 
+    // este metodo solo corre una vez
+    // ideal para crear el esquema de la bd
+    crearDB.onupgradeneeded = function(e){
+        // console.log('solo una vez');
+        // en este metodo definimos todos los campos
+
+        // el evento es la misma base de datos
+        let db = e.target.result;
+        // aqui obtenemos la instancia de la db
+        console.log(db);
+
+        // definir objectstore, tome 2 parametros
+        // nombre de la db y las opciones
+        // keyPath es la indice de la base de datos
+        let objectstore = db.createObjectStore('citas', {keyPath: 'key', 
+        autoIncrement: true});
+
+        // crear los indices y campos de la base de datos:
+        // 3 parametros: nombre, keypath y opciones 
+        // Indice para mascota 
+        objectstore.createIndex('mascota', 'mascota', {unique: false} ) 
+
+    }
 
 })
