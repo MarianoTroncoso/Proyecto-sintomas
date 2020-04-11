@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // el evento es la misma base de datos
         let db = e.target.result;
         // aqui obtenemos la instancia de la db
-        console.log(db);
+        //console.log(db);
 
         // definir objectstore, tome 2 parametros
         // nombre de la db y las opciones
@@ -136,6 +136,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p class="font-weight-bold">Sintomas: <span class="font-weight-normal">${cursor.value.sintomas}</span></p>
                 `;
 
+                // boton de borrar cita
+                const botonBorrar = document.createElement('button');
+                botonBorrar.classList.add('borrar', 'btn', 'btn-danger');
+                botonBorrar.innerHTML = '<span aria-hidden="true">X</span> Borrar';
+                botonBorrar.onclick = borrarCita;
+                citaHTML.appendChild(botonBorrar);
+
                 // append en el padre
                 citas.appendChild(citaHTML);
                 
@@ -154,6 +161,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+    }
+
+    function borrarCita(e){
+        console.log(e.target.parentElement.getAttribute('data-cita-id'));
     }
 
 })
